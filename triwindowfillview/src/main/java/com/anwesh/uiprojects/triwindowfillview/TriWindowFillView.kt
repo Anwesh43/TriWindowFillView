@@ -199,4 +199,27 @@ class TriWindowFillView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : TriWindowFillView) {
+
+        private val animator : Animator = Animator(view)
+        private val tfw : TriWindowFill = TriWindowFill(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            tfw.draw(canvas, paint)
+            animator.animate {
+                tfw.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            tfw.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
