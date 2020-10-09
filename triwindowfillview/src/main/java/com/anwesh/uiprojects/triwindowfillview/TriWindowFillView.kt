@@ -34,6 +34,7 @@ fun Float.divideScale(i : Int, n : Int) : Float = Math.min(n.inverse(), maxScale
 fun Float.sinify() : Float = Math.sin(this * Math.PI).toFloat()
 
 fun Canvas.drawFillPath(scale : Float, w : Float, h : Float, size : Float, paint : Paint) {
+    save()
     val path : Path = Path()
     path.moveTo(w / 2 - size / 2, h)
     path.lineTo(w / 2 - size / 2, h / 2)
@@ -43,6 +44,7 @@ fun Canvas.drawFillPath(scale : Float, w : Float, h : Float, size : Float, paint
     path.lineTo(w / 2 - size / 2, h)
     clipPath(path)
     drawRect(RectF(0f, h * (1 - scale), w, h), paint)
+    restore()
 }
 
 fun Canvas.drawTriWindowFill(scale : Float, w : Float, h : Float, paint : Paint) {
@@ -57,7 +59,7 @@ fun Canvas.drawTriWindowFill(scale : Float, w : Float, h : Float, paint : Paint)
         save()
         translate(size * j, 0f)
         drawLine(0f, 0f, 0f, -h * 0.5f * sf1, paint)
-        drawLine(0f, h / 2, size * (1f - 2 * j) * sf2,  h * 0.5f * (1 - sf2), paint)
+        drawLine(0f, -h / 2, size * 0.5f * (1f - 2 * j) * sf2,  -h * 0.5f * (1 + sf2), paint)
         restore()
     }
     restore()
