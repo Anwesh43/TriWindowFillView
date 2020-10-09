@@ -222,4 +222,13 @@ class TriWindowFillView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : TriWindowFillView {
+            val view : TriWindowFillView = TriWindowFillView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
